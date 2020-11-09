@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if(Auth::user()->role != 1) {
-            return redirect()->route('home')->with('message', 'you cannot accest this');
+            return redirect()->route('home')->with('message', 'you cannot access this');
         }
         
         return $next($request);
