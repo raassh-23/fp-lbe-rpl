@@ -19,4 +19,6 @@ class Game extends Model
     protected $hidden = [
         'game_createdBy_users_id',
     ];
+
+    public $timestamps = false;
 }

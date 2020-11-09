@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'gameImage' => [
+            'driver' => 'local',
+            'root' => storage_path('gameImage'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
