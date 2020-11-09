@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('/admin')->middleware('auth')->group(function() {
-     Route::get('/game/create', 'GameController@showCreatePage')->name('admin.game.create');
-     Route::post('/game/create', 'GameController@createGame')->name('admin.game.create.process');
+    // List
+    Route::get('/game', 'GameController@showGameList')->name('admin.game.list');
+    // Create
+    Route::get('/game/create', 'GameController@showCreatePage')->name('admin.game.create');
+    Route::post('/game/create', 'GameController@createGame')->name('admin.game.create.process');
 });

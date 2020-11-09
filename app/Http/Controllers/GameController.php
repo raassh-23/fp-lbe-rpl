@@ -54,4 +54,14 @@ class GameController extends Controller
 
         return redirect()->route('admin.game.create')->with('message', 'Game has been addded!');
     }
+
+    /**
+     * Show game list.
+     */
+    public function showGameList() {
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        return view('admin.game.list', [
+            'games' => $games,
+        ]);
+    }
 }
