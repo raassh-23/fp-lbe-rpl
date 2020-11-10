@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Game</li>
+            </ol>
+        </nav>
         <h1>List Game</h1>
         @if (sizeof($games) > 0)
         <table class="table">
@@ -23,7 +29,7 @@
                     <td>{{ $g->game_description }}</td>
                     <td>
                         <a href="#" class="btn btn-danger btn-block btm-sm">Delete</a>
-                        <a href="#" class="btn btn-warning btn-block btm-sm">Edit</a>
+                        <a href="{{ route('admin.game.edit', ['game_id' => $g->game_id]) }}" class="btn btn-warning btn-block btm-sm">Edit</a>
                     </td>
                 </tr>
                 @endforeach

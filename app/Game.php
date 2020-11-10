@@ -20,5 +20,8 @@ class Game extends Model
         'game_createdBy_users_id',
     ];
 
+    // Custom primary key
+    protected $primaryKey = 'game_id';
+
     public $timestamps = false;
 }

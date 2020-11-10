@@ -24,5 +24,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function() {
     // Create
     Route::get('/game/create', 'GameController@showCreatePage')->name('admin.game.create');
     Route::post('/game/create', 'GameController@createGame')->name('admin.game.create.process');
+    Route::get('/game/edit/{game_id}', 'GameController@showEditPage')->name('admin.game.edit');
+    Route::post('/game/edit/{game_id}', 'GameController@editGame')->name('admin.game.edit.process');
 });
 Route::get('gameImage/{imageName}', 'GameController@getGameImage')->name('gameImage');

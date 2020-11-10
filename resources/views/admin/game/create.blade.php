@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.game.list') }}">Game</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create</li>
+            </ol>
+        </nav>
         <h1>Create a new game</h1>
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>

@@ -67,6 +67,42 @@ class GameController extends Controller
     }
 
     /**
+     * Show edit page
+     */
+    public function showEditPage($game_id) {
+        $game = Game::findOrFail($game_id);
+        return view('admin.game.edit', [
+            'game' => $game,
+        ]);
+    }
+
+    /**
+     * Edit game
+     *
+     * @param int       $game_id
+     * @param Request   $request
+     */
+    
+    public function editGame($game_id, Request $request) {
+        $game = Game::findOrFail($game_id);
+
+        // Validation rule
+        $rules = [
+            'game_name' => 'required|string|min:1|max:128',
+            'game_description' => 'required|string|min:1|max:512',
+        ];
+
+        $request->validate($rules);
+
+        $game->game_name = $request->game_name;
+        $game->game_description = $request->game_description;
+
+        $game->save();
+
+        return redirect()->route('admin.game.edit', ['game_id' => $game_id])->with('message', 'Game has updated!');
+    }
+
+    /**
      * Get game image
      */
     public function getGameImage($imageName) {
