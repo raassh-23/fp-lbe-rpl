@@ -35,5 +35,6 @@
         </div>
         @endif
         {{ $games->links() }}
+        <a href="{{ route('admin.game.create') }}" class="btn btn-success float-right">Create new game</a>
     </div>
 @endsection
