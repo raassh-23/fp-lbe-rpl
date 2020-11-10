@@ -28,7 +28,8 @@
                     <td>{{ $g->game_name }}</td>
                     <td>{{ $g->game_description }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger btn-block btm-sm">Delete</a>
+                        <a href="{{ route('admin.game.details', ['game_id' => $g->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
+                        <a href="{{ route('admin.game.delete', ['game_id' => $g->game_id]) }}" class="btn btn-danger btn-block btm-sm">Delete</a>
                         <a href="{{ route('admin.game.edit', ['game_id' => $g->game_id]) }}" class="btn btn-warning btn-block btm-sm">Edit</a>
                     </td>
                 </tr>

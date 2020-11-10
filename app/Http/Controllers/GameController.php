@@ -77,6 +77,16 @@ class GameController extends Controller
     }
 
     /**
+     * Show delete page
+     */
+    public function showDeletePage($game_id) {
+        $game = Game::findOrFail($game_id);
+        return view('admin.game.delete', [
+            'game' => $game,
+        ]);
+    }
+
+    /**
      * Edit game
      *
      * @param int       $game_id
@@ -108,4 +118,44 @@ class GameController extends Controller
     public function getGameImage($imageName) {
         return Image::make(storage_path('gameImage/' . $imageName))->response();
     }
+
+    /**
+     * Delete game
+     */
+    public function deleteGame($game_id) {
+        $game = Game::findOrFail($game_id)->delete();
+        
+        return redirect()->route('admin.game.list')->with('status', 'Game successfully deleted');
+    }
+
+    /**
+     * Show game details page for admin
+     */
+    public function showDetailsPageAdmin($game_id) {
+        $game = Game::findOrFail($game_id);
+        return view('admin.game.details', [
+            'game' => $game,
+        ]);
+    }
+
+    /**
+     * Show game details page for user
+     */
+    public function showDetailsPageUser($game_id) {
+        $game = Game::findOrFail($game_id);
+        return view('user.game.details', [
+            'game' => $game,
+        ]);
+    }
+
+    /**
+     * Show game list for user
+     */
+    public function showGameListUser() {
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        return view('user.game.list', [
+            'games' => $games,
+        ]);
+    }
+
 }
