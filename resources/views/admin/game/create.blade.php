@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <h1>Create a new game</h1>
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
