@@ -8,6 +8,7 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Storage;
+use Image;
 
 class GameController extends Controller
 {
@@ -63,5 +64,12 @@ class GameController extends Controller
         return view('admin.game.list', [
             'games' => $games,
         ]);
+    }
+
+    /**
+     * Get game image
+     */
+    public function getGameImage($imageName) {
+        return Image::make(storage_path('gameImage/' . $imageName))->response();
     }
 }
