@@ -9,6 +9,9 @@
             </ol>
         </nav>
         <h1>List Game</h1>
+        @if (Session::has('message'))
+            <div class="alert alert-info">{{ Session::get('message') }}</div>
+        @endif
         @if (sizeof($games) > 0)
         <table class="table">
             <thead>

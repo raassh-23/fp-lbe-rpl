@@ -25,7 +25,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function() {
     // List
     Route::get('/game', 'GameController@showGameList')->name('admin.game.list');
     // Details
-    Route::get('/game/{game_id}', 'GameController@showDetailsPageAdmin')->name('admin.game.details');
+    Route::get('/game/details/{game_id}', 'GameController@showDetailsPageAdmin')->name('admin.game.details');
     // Create
     Route::get('/game/create', 'GameController@showCreatePage')->name('admin.game.create');
     Route::post('/game/create', 'GameController@createGame')->name('admin.game.create.process');
@@ -43,5 +43,5 @@ Route::prefix('/user')->middleware(['auth',])->group(function() {
     // List
     Route::get('/game', 'GameController@showGameListUser')->name('user.game.list');
     // Details
-    Route::get('/game/{game_id}', 'GameController@showDetailsPageUser')->name('user.game.details');
+    Route::get('/game/view/{game_code}', 'GameController@showDetailsPageUser')->name('user.game.details');
 });

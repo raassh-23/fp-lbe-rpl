@@ -17,13 +17,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $game->game_name }}</h5>
                             <p class="card-text">{{ $game->game_description }}</p>
-                            <a href="{{ route('user.game.details', ['game_id' => $game->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
+                            <a href="{{ route('user.game.details', ['game_code' => $game->game_code]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
                         </div>
                     </div>
                 @endforeach
             @else
                 <div class="alert alert-info">
-                    Tidak ada game terdaftar. Untuk mendaftarkan game, klik <a href="{{ route('admin.game.create') }}">di sini</a>
+                    Tidak ada game terdaftar.
                 </div>
             @endif
         </div>

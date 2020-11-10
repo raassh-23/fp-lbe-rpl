@@ -5,8 +5,8 @@
     	<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="{{ route('home') }}">home</a></li>
-				<li class="breadcrumb-item"><a href="{{ route('home.game.list') }}">Game</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Details</li>
+				<li class="breadcrumb-item"><a href="{{ route('user.game.list') }}">Game</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ $game->game_name }}</li>
 			</ol>
 		</nav>
 		<h1>Game Info</h1>

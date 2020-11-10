@@ -12,10 +12,22 @@ use Image;
 
 class GameController extends Controller
 {
+
+    /**
+     * Show game creation page
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function showCreatePage() {
         return view('admin.game.create');
     }
 
+    /**
+     * Create game
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function createGame(Request $request) {
         $rules = [
             'game_name' => 'required|string|min:1|max:128',
@@ -58,6 +70,8 @@ class GameController extends Controller
 
     /**
      * Show game list.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameList() {
         $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
@@ -68,6 +82,9 @@ class GameController extends Controller
 
     /**
      * Show edit page
+     *
+     * @param int $game_id
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showEditPage($game_id) {
         $game = Game::findOrFail($game_id);
@@ -78,6 +95,9 @@ class GameController extends Controller
 
     /**
      * Show delete page
+     *
+     * @param int $game_id
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showDeletePage($game_id) {
         $game = Game::findOrFail($game_id);
@@ -91,6 +111,7 @@ class GameController extends Controller
      *
      * @param int       $game_id
      * @param Request   $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     
     public function editGame($game_id, Request $request) {
@@ -114,6 +135,9 @@ class GameController extends Controller
 
     /**
      * Get game image
+     *
+     * @param string $imageName
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getGameImage($imageName) {
         return Image::make(storage_path('gameImage/' . $imageName))->response();
@@ -121,15 +145,24 @@ class GameController extends Controller
 
     /**
      * Delete game
+     *
+     * @param int $game_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteGame($game_id) {
-        $game = Game::findOrFail($game_id)->delete();
+        $game = Game::findOrFail($game_id);
+
+        // Delete game
+        $game->delete();
         
-        return redirect()->route('admin.game.list')->with('status', 'Game successfully deleted');
+        return redirect()->route('admin.game.list')->with('message', 'Game has been deleted!');
     }
 
     /**
      * Show game details page for admin
+     *
+     * @param int $game_id
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showDetailsPageAdmin($game_id) {
         $game = Game::findOrFail($game_id);
@@ -140,9 +173,14 @@ class GameController extends Controller
 
     /**
      * Show game details page for user
+     *
+     * @param string $game_code
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function showDetailsPageUser($game_id) {
-        $game = Game::findOrFail($game_id);
+    public function showDetailsPageUser($game_code) {
+        $game = Game::where('game_code', $game_code)->first();
+        if(!$game)
+            abort(404);
         return view('user.game.details', [
             'game' => $game,
         ]);
@@ -150,6 +188,8 @@ class GameController extends Controller
 
     /**
      * Show game list for user
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameListUser() {
         $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
