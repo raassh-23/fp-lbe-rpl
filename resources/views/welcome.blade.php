@@ -22,7 +22,7 @@
                     </h2>
                     @if (Route::has('login'))
                     @auth
-                            <a class="btn btn-primary" href="{{ url('/home') }}">Dashboard</a>
+                            <a class="btn btn-primary" href="{{ route('user.game.list') }}">Dashboard</a>
                     @else
                             <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
     
