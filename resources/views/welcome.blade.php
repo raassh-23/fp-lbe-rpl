@@ -10,16 +10,17 @@
         <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
     </head>
-    <body>
+    <body style = "background-color:gold;">
         <div class="container h-100">
             <div class="row align-items-center h-100">
                 <div class="col text-center title">
-                    <h1 class="mb-0">
+                    <h1 class="mb-0" style = "font-family:Impact">
                         GameList
                     </h1>
                     <h2 class="mb-4">
                         We list games
                     </h2>
+                    <p>(Plz help, testing here (D))</p>
                     @if (Route::has('login'))
                     @auth
                             <a class="btn btn-primary" href="{{ route('user.game.list') }}">Dashboard</a>
