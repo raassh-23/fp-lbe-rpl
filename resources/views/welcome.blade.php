@@ -15,7 +15,7 @@
             <div class="row align-items-center h-100">
                 <div class="col text-center title">
                     <h1 class="mb-0" style = "font-family:Impact">
-                        GameList
+                        <span style = "color: crimson">Game</span><span style = "color: navy">List</span>
                     </h1>
                     <h2 class="mb-4">
                         We list games
