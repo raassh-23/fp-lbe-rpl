@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="background-color:gold">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">Game</li>
@@ -11,12 +11,19 @@
         <div class="row">
             @if (sizeof($games) > 0)
                 @foreach($games as $game)
-                    <div class="card">
-                        <img class="img-thumbnail" src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" alt="Card image cap" width="200px">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $game->game_name }}</h5>
-                            <p class="card-text">{{ $game->game_description }}</p>
-                            <a href="{{ route('user.game.details', ['game_code' => $game->game_code]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
+                    <div class="container">
+                        <div class="col">
+                            <table>
+                                <tr>
+                                    <th style="width:456px"><img class="img-thumbnail" src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" alt="Card image cap" width="200px"></th>
+                                    <th style="width:456px">
+                                        <h5 class="card-title" style = "text-align:left">{{ $game->game_name }}</h5>
+                                        <p class="card-text" style = "text-align:left">{{ $game->game_description }}</p>
+                                    </th>
+                                    <th style="width:456px; vertical-align:bottom"><a href="{{ route('user.game.details', ['game_code' => $game->game_code]) }}" class="btn btn-primary btn-block btm-sm">Details</a></th>
+                                </tr>
+                            </table>
+                            
                         </div>
                     </div>
                 @endforeach

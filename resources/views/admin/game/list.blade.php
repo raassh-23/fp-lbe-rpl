@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" style = "background-color: gold;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Admin</a></li>
@@ -14,7 +14,7 @@
         @endif
         @if (sizeof($games) > 0)
         <table class="table">
-            <thead>
+            <!-- <thead>
                 <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Gambar Game</th>
@@ -22,15 +22,16 @@
                 <th scope="col">Deskripsi</th>
                 <th scope="col">*</th>
                 </tr>
-            </thead>
+            </thead> -->
             <tbody>
                 @foreach($games as $g)
                 <tr>
-                    <th scope="row">{{ $loop->index + 1 }}</th>
+                    <!-- <th scope="row">{{ $loop->index + 1 }}</th> -->
                     <td><img src="{{ route('gameImage', ['imageName' => $g->game_imagePath]) }}" class="img-thumbnail" width="400"></td>
-                    <td>{{ $g->game_name }}</td>
-                    <td>{{ $g->game_description }}</td>
-                    <td>
+                    <td><h2>{{ $g->game_name }}</h2>
+                    {{ $g->game_description }}</td>
+                    <td style = "vertical-align:bottom">
+                        
                         <a href="{{ route('admin.game.details', ['game_id' => $g->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
                         <a href="{{ route('admin.game.delete', ['game_id' => $g->game_id]) }}" class="btn btn-danger btn-block btm-sm">Delete</a>
                         <a href="{{ route('admin.game.edit', ['game_id' => $g->game_id]) }}" class="btn btn-warning btn-block btm-sm">Edit</a>
