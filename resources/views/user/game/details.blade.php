@@ -10,7 +10,7 @@
 		</nav>
 		<h1>Game Info</h1>
 		<h2>{{$game->game_name}}<h2>
-		<img src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" class="img-thumbnail" width="400">
+		<img src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" class="img-thumbnail mx-auto d-block" width="400">
 		<p>{{ $game->game_description }}</p>
 
         @if (Session::has('message'))
