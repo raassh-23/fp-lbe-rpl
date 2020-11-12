@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>GameList : We List Your Game (And Crime, JK)</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,9 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app" style="background-color:#FFB320">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body style="background-color:#FFB320">
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style ="background-color:#65D5E8 !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}" style="font-family:Impact">
                     <!-- {{ config('app.name', 'Laravel') }} -->
