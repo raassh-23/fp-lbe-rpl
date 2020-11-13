@@ -10,7 +10,7 @@
         <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
     </head>
-    <body style = "background-color:gold;">
+    <body style = "background-color: #B8DBD9;">
         <div class="container h-100">
             <div class="row align-items-center h-100">
                 <div class="col text-center title">
@@ -18,9 +18,8 @@
                         <span style = "color: crimson">Game</span><span style = "color: navy">List</span>
                     </h1>
                     <h2 class="mb-4">
-                        We list games
+                        Welcome to GameList!
                     </h2>
-                    <p>(Plz help, testing here (D))</p>
                     @if (Route::has('login'))
                     @auth
                             <a class="btn btn-primary" href="{{ route('user.game.list') }}">Dashboard</a>

@@ -4,9 +4,8 @@
     <div class="container">
     	<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="{{ route('admin') }}">Admin</a></li>
-				<li class="breadcrumb-item"><a href="{{ route('admin.game.list') }}">Game</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Details</li>
+				<li class="breadcrumb-item"><a href="{{ route('user.game.list') }}">Game</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ $game->game_name }}</li>
 			</ol>
 		</nav>
 		<div class="p-4 shadow bg-white shadow mt-4">

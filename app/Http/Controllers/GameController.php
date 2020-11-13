@@ -100,7 +100,7 @@ class GameController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameList() {
-        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(5);
         return view('admin.game.list', [
             'games' => $games,
         ]);
@@ -236,7 +236,7 @@ class GameController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameListUser() {
-        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(5);
         return view('user.game.list', [
             'games' => $games,
         ]);

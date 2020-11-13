@@ -19,9 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="background-color:#FFB320">
+<body style="background-color:#B8DBD9;">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style ="background-color:#65D5E8 !important;">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style ="background-color:#F4F4F9 !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}" style="font-family:Impact">
                     <!-- {{ config('app.name', 'Laravel') }} -->
