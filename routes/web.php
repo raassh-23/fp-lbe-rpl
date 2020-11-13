@@ -36,6 +36,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function() {
 });
 
 Route::get('gameImage/{imageName}', 'GameController@getGameImage')->name('gameImage');
+Route::get('platformImage/{imageName}', 'GameController@getPlatformImage')->name('platformImage');
 
 Route::prefix('/user')->middleware(['auth',])->group(function() {
     // List

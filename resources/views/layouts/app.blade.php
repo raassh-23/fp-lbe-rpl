@@ -77,5 +77,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('footer_script')
 </body>
 </html>

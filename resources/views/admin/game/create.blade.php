@@ -36,7 +36,18 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            @foreach($platforms as $p)
+            <div class="form-group">
+                <label for="game_name">Download link for {{ $p->plt_name }}</label>
+                <input type="text" class="form-control" name="game_plt[{{ $p->plt_id }}]" placeholder="https://..." />
+                @error('game_plt.'.$p->plt_id)
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            @endforeach
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
 @endsection
+@push('footer_script')
+@endpush
