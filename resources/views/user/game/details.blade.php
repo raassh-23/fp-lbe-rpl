@@ -32,15 +32,13 @@
 			
 			@if (sizeof($platform) > 0)
 				@foreach($platform as $p)
-					<img src="{{ route('platformImage', ['imageName' => $p->plt_dlImagePath]) }}" class="img-thumbnail" width="200">
+					<a href="{{ $p->gp_downloadLink }}">
+						<img src="{{ route('platformImage', ['imageName' => $p->plt_dlImagePath]) }}" class="img-thumbnail" width="200" />
+					</a>
 				@endforeach
 			@else
 				<p class="h6">No download link is available.</p>
 			@endif
-		</div>
-		<div class="btn-group float-right" role="group" aria-label="Admin Operation">
-			<a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-danger btm-sm">Delete</a>
-			<a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-warning btm-sm">Edit</a>
 		</div>
     </div>
 @endsection

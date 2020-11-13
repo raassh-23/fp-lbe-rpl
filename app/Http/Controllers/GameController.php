@@ -224,7 +224,7 @@ class GameController extends Controller
         $platform = GamePlatform::where('gp_game_id', $game->game_id)
             ->join('platform_types', 'game_platforms.gp_platform_id', 'platform_types.plt_id')
             ->get();
-        return view('admin.game.details', [
+        return view('user.game.details', [
             'game' => $game,
             'platform' => $platform,
         ]);
