@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\GamePlatform;
+use App\PlatformType;
 use Carbon\Carbon;
+use DB;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Storage;
 use Image;
+use Storage;
 
 class GameController extends Controller
 {
@@ -19,7 +22,10 @@ class GameController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showCreatePage() {
-        return view('admin.game.create');
+        $platforms = PlatformType::get();
+        return view('admin.game.create', [
+            'platforms' => $platforms,
+        ]);
     }
 
     /**
@@ -33,8 +39,9 @@ class GameController extends Controller
             'game_name' => 'required|string|min:1|max:128',
             'game_description' => 'required|string|min:1|max:512',
             'game_image' => 'required|image|mimes:jpg,png,jpeg',
+            'game_plt' => 'nullable|array',
+            'game_plt.*' => 'nullable|active_url|min:1|max:256',
         ];
-
         // Validate
         $request->validate($rules);
 
@@ -55,7 +62,7 @@ class GameController extends Controller
         $fileName = $code.'.'.$image->extension();
         Storage::disk('gameImage')->put($fileName, File::get($image));
 
-        Game::create([
+        $game_id = Game::insertGetId([
             'game_createdBy_users_id' => Auth()->user()->id,
             'game_code' => $code,
             'game_name' => $request->game_name,
@@ -64,6 +71,25 @@ class GameController extends Controller
             'game_createdAt' => $now,
             'game_updatedAt' => $now,
         ]);
+
+        // Platform adder
+        if(!is_null($request->game_plt)) {
+            foreach($request->game_plt as $key => $val) {
+                if(!is_null($val)) {
+                    $platform = PlatformType::find($key);
+                    // If platforme exists
+                    if($platform) {
+                        GamePlatform::create([
+                            'gp_game_id' => $game_id,
+                            'gp_platform_id' => $key,
+                            'gp_downloadLink' => $val,
+                            'gp_createdAt' => $now,
+                            'gp_updatedAt' => $now,
+                        ]);
+                    }
+                }
+            }
+        }
 
         return redirect()->route('admin.game.create')->with('message', 'Game has been addded!');
     }
@@ -74,7 +100,7 @@ class GameController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameList() {
-        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(5);
         return view('admin.game.list', [
             'games' => $games,
         ]);
@@ -144,6 +170,16 @@ class GameController extends Controller
     }
 
     /**
+     * Get platform image
+     *
+     * @param string $imageName
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPlatformImage($imageName) {
+        return Image::make(storage_path('platformImage/' . $imageName))->response();
+    }
+
+    /**
      * Delete game
      *
      * @param int $game_id
@@ -166,8 +202,12 @@ class GameController extends Controller
      */
     public function showDetailsPageAdmin($game_id) {
         $game = Game::findOrFail($game_id);
+        $platform = GamePlatform::where('gp_game_id', $game->game_id)
+                    ->join('platform_types', 'game_platforms.gp_platform_id', 'platform_types.plt_id')
+                    ->get();
         return view('admin.game.details', [
             'game' => $game,
+            'platform' => $platform,
         ]);
     }
 
@@ -179,14 +219,23 @@ class GameController extends Controller
      */
     public function showDetailsPageUser($game_code) {
         $game = Game::where('game_code', $game_code)->first();
-        $reviews = $game->reviews();
+
         if(!$game) {
             abort(404);
         }
+
+        $platform = GamePlatform::where('gp_game_id', $game->game_id)
+            ->join('platform_types', 'game_platforms.gp_platform_id', 'platform_types.plt_id')
+            ->get();
+
+        $reviews = $game->reviews;
+
         return view('user.game.details', [
             'game' => $game,
+            'platform' => $platform,
             'reviews' => $reviews,
         ]);
+    
     }
 
     /**
@@ -195,7 +244,7 @@ class GameController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function showGameListUser() {
-        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(10);
+        $games = Game::orderBy('game_createdAt', 'DESC')->paginate(5);
         return view('user.game.list', [
             'games' => $games,
         ]);

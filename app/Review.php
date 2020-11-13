@@ -14,6 +14,8 @@ class Review extends Model
         'rev_updatedAt',
     ];
 
+    protected $primaryKey = 'rev_id';
+
     public $timestamps = false;
 
     public function user()

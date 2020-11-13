@@ -1,51 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style = "background-color: gold;">
+    <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Admin</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Game</li>
             </ol>
         </nav>
-        <h1>List Game</h1>
-        @if (Session::has('message'))
-            <div class="alert alert-info">{{ Session::get('message') }}</div>
-        @endif
-        @if (sizeof($games) > 0)
-        <table class="table">
-            <!-- <thead>
-                <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Gambar Game</th>
-                <th scope="col">Nama Game</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">*</th>
-                </tr>
-            </thead> -->
-            <tbody>
-                @foreach($games as $g)
-                <tr>
-                    <!-- <th scope="row">{{ $loop->index + 1 }}</th> -->
-                    <td><img src="{{ route('gameImage', ['imageName' => $g->game_imagePath]) }}" class="img-thumbnail" width="400"></td>
-                    <td><h2>{{ $g->game_name }}</h2>
-                    {{ $g->game_description }}</td>
-                    <td style = "vertical-align:bottom">
-                        
-                        <a href="{{ route('admin.game.details', ['game_id' => $g->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
-                        <a href="{{ route('admin.game.delete', ['game_id' => $g->game_id]) }}" class="btn btn-danger btn-block btm-sm">Delete</a>
-                        <a href="{{ route('admin.game.edit', ['game_id' => $g->game_id]) }}" class="btn btn-warning btn-block btm-sm">Edit</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @else
-        <div class="alert alert-info">
-            Tidak ada game terdaftar. Untuk mendaftarkan game, klik <a href="{{ route('admin.game.create') }}">di sini</a>
-        </div>
-        @endif
-        {{ $games->links() }}
         <a href="{{ route('admin.game.create') }}" class="btn btn-success float-right">Create new game</a>
+        <h1 class="mb-4">Games</h1>
+        @if (sizeof($games) > 0)
+            @foreach($games as $game)
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <tr class="bg-white m-4 shadow">
+                                <th class="p-4" style="width:456px; text-align:center"><img class="img-fluid" src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" alt="Card image cap" width="200px"></th>
+                                <th class="p-4" style="width:456px">
+                                    <h5 class="card-title" style = "text-align:left">{{ $game->game_name }}</h5>
+                                    <p class="card-text" style = "text-align:left">{{ $game->game_description }}</p>
+                                </th>
+                                <th class="p-4" style="width:228px; vertical-align:bottom">
+                                <div class="btn-group float-right" role="group" aria-label="Admin Operation">
+                                    <a href="{{ route('admin.game.details', ['game_id' => $game->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
+                                    <a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-secondary btm-sm">Delete</a>
+                                    <a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-secondary btm-sm">Edit</a>
+                                </div>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <div class="alert alert-info">
+                Tidak ada game terdaftar.
+            </div>
+        @endif
+        <div class="float-right">
+            {{ $games->links() }}
+        </div>
     </div>
 @endsection

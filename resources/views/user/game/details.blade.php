@@ -8,28 +8,54 @@
 				<li class="breadcrumb-item active" aria-current="page">{{ $game->game_name }}</li>
 			</ol>
 		</nav>
-		<h1>Game Info</h1>
-		<h2>{{$game->game_name}}<>
-		<img src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" class="img-thumbnail mx-auto d-block" width="400">
-		<p>{{ $game->game_description }}</p>
-		
-		<h2>Reviews</h2>
 
-		<form method="POST" action="{{ route('user.review.create') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="rev_text">Your Review</label>
-                <textarea class="form-control" name="rev_text" placeholder="Your Review" required></textarea>
-                @error('rev_text')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-			</div>
-			<input type="hidden" name="game_id" value="{{ $game->game_id }}">
-            <button type="submit" class="btn btn-primary">Add review</button>
-        </form>
-		
-        @if (Session::has('message'))
+		@if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
+
+		<div class="p-4 shadow bg-white shadow mt-4">
+			<h1>{{$game->game_name}}<h1>
+			<img src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" class="img-thumbnail mx-auto d-block" width="400" />
+			<p class="text-center h6 mt-2">{{ $game->game_name }} picture</p>
+			<h3>Description</h3>
+			
+			<p class="h6">{{ $game->game_description }}</p>
+			<h3 class="mt-4">Available on</h3>
+			@if (sizeof($platform) > 0)
+				<ul>
+				@foreach($platform as $p)
+					<li>{{ $p->plt_name }}</li>
+				@endforeach
+				</ul>
+			@else
+				<p class="h6">-</p>
+			@endif
+		</div>
+		<div class="p-4 shadow bg-white shadow mt-4 mb-4">
+			<h3>Download Now!</h3>
+			
+			@if (sizeof($platform) > 0)
+				@foreach($platform as $p)
+					<a href="{{ $p->gp_downloadLink }}">
+						<img src="{{ route('platformImage', ['imageName' => $p->plt_dlImagePath]) }}" class="img-thumbnail" width="200" />
+					</a>
+				@endforeach
+			@else
+				<p class="h6">No download link is available.</p>
+			@endif
+		</div>
+
+		<h2>Reviews</h2>
+		@foreach($reviews as $review)
+			<h4> {{ $review->user->name }} </h4>
+			<p> {{ $review->rev_text }} </p>
+			@if($review->user->id == Auth()->user()->id)
+				<a href="{{ route('user.review.edit', ['game_code' => $game->game_code, ]) }}" class="btn btn-warning">Edit</a>
+				<a href="{{ route('user.review.delete', ['game_code' => $game->game_code, ]) }}" class="btn btn-danger">Delete</a>
+			@endif
+		@endforeach
+
+		<a href=" {{ route('user.review.create', ['game_code' => $game->game_code, ]) }} " class="btn btn-primary">Add Review</a>
+	
     </div>
 @endsection

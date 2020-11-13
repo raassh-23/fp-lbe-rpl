@@ -19,9 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="background-color:#FFB320">
+<body style="background-color:#B8DBD9;">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style ="background-color:#65D5E8 !important;">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style ="background-color:#F4F4F9 !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}" style="font-family:Impact">
                     <!-- {{ config('app.name', 'Laravel') }} -->
@@ -36,9 +36,14 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}">{{ __('Home') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.game.list') }}">{{ __('Games') }}</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -56,6 +61,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->role == 1)
+                                    <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Page') }}</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -77,5 +85,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('footer_script')
 </body>
 </html>

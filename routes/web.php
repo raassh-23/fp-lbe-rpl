@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
@@ -36,6 +36,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function() {
 });
 
 Route::get('gameImage/{imageName}', 'GameController@getGameImage')->name('gameImage');
+Route::get('platformImage/{imageName}', 'GameController@getPlatformImage')->name('platformImage');
 
 Route::prefix('/user')->middleware(['auth',])->group(function() {
     // List
@@ -43,5 +44,12 @@ Route::prefix('/user')->middleware(['auth',])->group(function() {
     // Details
     Route::get('/game/view/{game_code}', 'GameController@showDetailsPageUser')->name('user.game.details');
     
-    Route::post('/review/create', 'ReviewController@CreateReview')->name('user.review.create');
+    Route::get('/review/create/{game_code}', 'ReviewController@showCreatePage')->name('user.review.create');
+    Route::post('/review/create/{game_code}', 'ReviewController@CreateReview')->name('user.review.create.process');
+
+    Route::get('/review/edit/{game_code}', 'ReviewController@showEditPage')->name('user.review.edit');
+    Route::post('/review/edit/{game_code}', 'ReviewController@editReview')->name('user.review.edit.process');
+
+    Route::get('/review/delete/{game_code}', 'ReviewController@showDeletePage')->name('user.review.delete');
+    Route::delete('/review/delete/{game_code}', 'ReviewController@deleteReview')->name('user.review.delete.process');
 });

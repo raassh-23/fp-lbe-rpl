@@ -9,10 +9,11 @@
                 <li class="breadcrumb-item active" aria-current="page">Create</li>
             </ol>
         </nav>
-        <h1>Create a new game</h1>
+        <h1 class="mb-4">Create a new game</h1>
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
+        <div class="p-4 shadow bg-white">
         <form method="POST" action="{{ route('admin.game.create.process') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -36,7 +37,19 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            @foreach($platforms as $p)
+            <div class="form-group">
+                <label for="game_name">Download link for {{ $p->plt_name }}</label>
+                <input type="text" class="form-control" name="game_plt[{{ $p->plt_id }}]" placeholder="https://..." />
+                @error('game_plt.'.$p->plt_id)
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            @endforeach
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
+        </div>
     </div>
 @endsection
+@push('footer_script')
+@endpush
