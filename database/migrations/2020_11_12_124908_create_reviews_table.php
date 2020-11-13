@@ -17,6 +17,8 @@ class CreateReviewsTable extends Migration
             $table->bigIncrements('rev_id');
             $table->unsignedBigInteger('rev_reviewedBy_users_id');
             $table->foreign('rev_reviewedBy_users_id')->references('id')->on('users');
+            $table->unsignedBigInteger('rev_reviewAt_game_id');
+            $table->foreign('rev_reviewAt_game_id')->references('game_id')->on('games');
             $table->string('rev_text', 256);
             $table->datetime('rev_createdAt');
             $table->datetime('rev_updatedAt');
