@@ -113,10 +113,9 @@ class ReviewController extends Controller
     }
 
     public function deleteReview($game_code, Request $request) {
-        $game = Review::findOrFail($request->rev_id);
+        $review = Review::findOrFail($request->rev_id);
 
-        // Delete game
-        $game->delete();
+        $review->delete();
         
         return redirect()->route('user.game.details', ['game_code' => $game_code])->with('message', 'Review has been deleted!');
     }
