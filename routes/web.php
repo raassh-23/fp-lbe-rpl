@@ -42,4 +42,6 @@ Route::prefix('/user')->middleware(['auth',])->group(function() {
     Route::get('/game', 'GameController@showGameListUser')->name('user.game.list');
     // Details
     Route::get('/game/view/{game_code}', 'GameController@showDetailsPageUser')->name('user.game.details');
+    
+    Route::post('/review/create', 'ReviewController@CreateReview')->name('user.review.create');
 });

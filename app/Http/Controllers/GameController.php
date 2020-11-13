@@ -179,10 +179,13 @@ class GameController extends Controller
      */
     public function showDetailsPageUser($game_code) {
         $game = Game::where('game_code', $game_code)->first();
-        if(!$game)
+        $reviews = $game->reviews();
+        if(!$game) {
             abort(404);
+        }
         return view('user.game.details', [
             'game' => $game,
+            'reviews' => $reviews,
         ]);
     }
 

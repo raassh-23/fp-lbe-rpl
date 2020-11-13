@@ -24,4 +24,9 @@ class Game extends Model
     protected $primaryKey = 'game_id';
 
     public $timestamps = false;
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review', 'rev_reviewAt_game_id');
+    }
 }
