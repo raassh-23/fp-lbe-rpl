@@ -48,13 +48,17 @@
 		<div class="p-4 shadow bg-white shadow mt-4 mb-4">
 		<h2>Reviews</h2>
 		@foreach($reviews as $review)
-			<h4> {{ $review->user->name }} </h4>
-			<p> {{ $review->rev_text }} </p>
-			@if($review->user->id == Auth()->user()->id)
-				<a href="{{ route('user.review.edit', ['game_code' => $game->game_code, ]) }}" class="btn btn-warning">Edit</a>
-				<a href="{{ route('user.review.delete', ['game_code' => $game->game_code, ]) }}" class="btn btn-danger">Delete</a>
-			@endif
-			<p></p>
+			<div @if(!$loop->last) class="mb-4" @endif>
+				<h4> {{ $review->user->name }} </h4>
+				<p class="mb-1"> {{ $review->rev_text }} </p>
+				@if($review->user->id == Auth()->user()->id)
+					<div class="btn-group" role="group" aria-label="Review Operation">
+						<a href="{{ route('user.review.edit', ['game_code' => $game->game_code, ]) }}" class="btn btn-warning">Edit</a>
+						<a href="{{ route('user.review.delete', ['game_code' => $game->game_code, ]) }}" class="btn btn-danger">Delete</a>
+					</div>
+				@endif
+			</div>
+			
 		@endforeach
 		</div>
 

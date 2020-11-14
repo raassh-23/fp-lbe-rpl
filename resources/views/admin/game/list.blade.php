@@ -24,8 +24,8 @@
                                 <th class="p-4" style="width:228px; vertical-align:bottom">
                                 <div class="btn-group float-right" role="group" aria-label="Admin Operation">
                                     <a href="{{ route('admin.game.details', ['game_id' => $game->game_id]) }}" class="btn btn-primary btn-block btm-sm">Details</a>
-                                    <a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-secondary btm-sm">Delete</a>
-                                    <a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-secondary btm-sm">Edit</a>
+                                    <a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-warning btm-sm">Edit</a>
+                                    <a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-danger btm-sm">Delete</a>
                                 </div>
                                 </th>
                             </tr>
