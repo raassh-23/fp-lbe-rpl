@@ -9,8 +9,14 @@
 				<li class="breadcrumb-item active" aria-current="page">Details</li>
 			</ol>
 		</nav>
+
+		
 		<div class="p-4 shadow bg-white shadow mt-4">
 			<h1>{{$game->game_name}}<h1>
+				<div class="btn-group float-right" role="group" aria-label="Admin Operation">
+					<a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-danger btm-sm">Delete</a>
+					<a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-warning btm-sm">Edit</a>
+				</div>
 			<img src="{{ route('gameImage', ['imageName' => $game->game_imagePath]) }}" class="img-thumbnail mx-auto d-block" width="400" />
 			<p class="text-center h6 mt-2">{{ $game->game_name }} picture</p>
 			<h3>Description</h3>
@@ -38,9 +44,6 @@
 				<p class="h6">No download link is available.</p>
 			@endif
 		</div>
-		<div class="btn-group float-right" role="group" aria-label="Admin Operation">
-			<a href="{{ route('admin.game.delete', ['game_id' => $game->game_id]) }}" class="btn btn-danger btm-sm">Delete</a>
-			<a href="{{ route('admin.game.edit', ['game_id' => $game->game_id]) }}" class="btn btn-warning btm-sm">Edit</a>
-		</div>
+		
     </div>
 @endsection
